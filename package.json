@@ -1,0 +1,12 @@
+{
+  "name": "expressBears",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Jessica Anderson",
+  "license": "MIT",
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.4"
+  }
+}
