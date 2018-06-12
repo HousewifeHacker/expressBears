@@ -1,6 +1,13 @@
 {
   "name": "expressBears",
   "version": "1.0.0",
+  "engines": {
+    "node": "9.7.1",
+    "yarn": "1.5.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
   "main": "server.js",
   "author": "Jessica Anderson",
   "license": "MIT",
