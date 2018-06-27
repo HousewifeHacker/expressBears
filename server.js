@@ -1,7 +1,29 @@
+// 3rd party
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 
-const PORT = process.env.PORT || 8080;
+// internal
+const keys = require('./config/keys');
+require('./models/User'); // done before passport service that uses User model
+require('./services/passport'); //oauth service
+
+mongoose.connect(keys.mongoURI);
+
+const app = express();
+// allow cookie for 30 days
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    })
+)
+app.use(passport.initialize());
+app.use(passport.session());
+
+const authRouter = require('./routes/auth');
+app.use('/auth', authRouter);
 
 // tester route, GET only
 app.get('/', function(req, res) {
@@ -24,6 +46,6 @@ apiRouter.get('/', (req, res) => {
 app.use('/api', apiRouter);
 
 // start server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 console.log('Magic happens on port ' + PORT);
-
